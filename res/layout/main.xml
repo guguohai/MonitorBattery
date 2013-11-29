@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LayoutOutside" >
+
+    <TextView
+        android:id="@+id/battery_tips"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dip"
+        android:paddingTop="10dip"
+        android:textColor="#ff0000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:text="输入电量跳变率，0为有变化就记录。"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_batteryVal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="1"
+        android:inputType="number" />
+
+    <LinearLayout
+        style="@style/LinearHor"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="停止" />
+        
+                <Button
+            android:id="@+id/btn_clean"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="清除选择" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_plans"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dip" />
+
+</LinearLayout>

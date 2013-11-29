@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LayoutOutside" >
+
+    <!--LinearLayout
+        style="@style/LinearHor"
+        android:gravity="center_vertical"
+        android:paddingTop="10dip" >
+
+        <Spinner
+            android:id="@+id/spinner_type"
+            android:layout_width="250dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip" />
+
+        <Button
+            android:id="@+id/btn_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="删除" />
+    </LinearLayout-->
+
+    <ListView
+        android:id="@+id/lv_battery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

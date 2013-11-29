@@ -1,0 +1,11 @@
+*.class
+/bin/
+/gen/
+*/Thumbs.db
+*.apk
+*.ap_
+*.dex
+
+
+# Local configuration file (sdk path, etc)
+local.properties
