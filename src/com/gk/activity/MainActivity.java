@@ -11,6 +11,7 @@ import com.gk.adapter.PlanAdapter;
 import com.gk.db.DBManager;
 import com.gk.entity.Battery;
 import com.gk.entity.Plan;
+import com.gk.utils.Update;
 import com.gk.activity.R;
 
 import android.os.AsyncTask;
@@ -26,6 +27,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -52,7 +55,7 @@ public class MainActivity extends Activity {
 	private int changeNum = 0;
 	private SharedPreferences sp;
 	private Editor editor;
-	private boolean isRunning=false;
+	private boolean isRunning = false;
 
 	private PlanAdapter adapter;
 
@@ -69,7 +72,7 @@ public class MainActivity extends Activity {
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		sp = getSharedPreferences("battery", Context.MODE_PRIVATE);
 		editor = sp.edit();
-		
+
 		btnClean = (Button) findViewById(R.id.btn_clean);
 
 		lvPlans = (ListView) findViewById(R.id.lv_plans);
@@ -93,8 +96,9 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(isRunning){
-					Toast.makeText(MainActivity.this, "正在测试中,不能删除！",5000).show();
+				if (isRunning) {
+					Toast.makeText(MainActivity.this, "正在测试中,不能删除！", 5000)
+							.show();
 					return;
 				}
 				DBManager dbm = new DBManager(MainActivity.this);
@@ -137,7 +141,7 @@ public class MainActivity extends Activity {
 	private class stopTask implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			isRunning=false;
+			isRunning = false;
 			if (BatteryReceiver != null) {
 				unregisterReceiver(BatteryReceiver);
 			}
@@ -157,7 +161,7 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		editor.remove("value");
 		editor.commit();
-		isRunning=false;
+		isRunning = false;
 		super.onDestroy();
 	}
 
@@ -247,8 +251,8 @@ public class MainActivity extends Activity {
 	private class BatteryReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			isRunning=true;
-			
+			isRunning = true;
+
 			int currentBattery = intent.getExtras().getInt("level");// 获得当前电量
 			int total = intent.getExtras().getInt("scale");// 获得总电量
 			int percent = currentBattery * 100 / total;
@@ -300,6 +304,18 @@ public class MainActivity extends Activity {
 				MainActivity.this.finish();
 			}
 		});
+
+		dlg.setNeutralButton("HOME", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.addCategory(Intent.CATEGORY_HOME);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+						| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+				startActivity(intent);
+			}
+		});
+
 		dlg.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -308,6 +324,26 @@ public class MainActivity extends Activity {
 			}
 		});
 		dlg.create().show();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+		case R.id.action_update:
+			Update update=new Update(this);
+			update.Start();
+			break;
+		}
+		return true;
 	}
 
 }

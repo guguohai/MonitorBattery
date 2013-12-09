@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dip"
-        android:text="输入电量跳变率，0为有变化就记录。"
+        android:text="输入电量跳变率，(0为有变化就记录)"
         android:textSize="15sp" />
 
     <EditText
